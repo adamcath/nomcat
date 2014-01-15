@@ -19,3 +19,7 @@ dependencies {
 }
 
 mainClassName = "nomcat.Main"
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.3'
+}

@@ -25,18 +25,28 @@ import static nomcat.TerminalColors.RESET;
  */
 public class Main
 {
-    public static final int PORT = 10080;
+    public static int port = 10080;
 
     public static void main(String[] args) throws Exception
     {
-        List<String> argv = Arrays.asList(args);
+        List<String> argv = new ArrayList<String>(Arrays.asList(args));
 
         if (argv.contains("-h") || argv.contains("--help"))
         {
-            info("Nomcat: a simple WAR server that's not Tomcat\n");
-            info("Usage: nomcat.sh [WAR_1] [WAR_2]\n");
-            info("If WAR_X is omitted, nomcat will serve any WARs in $CWD or $CWD/wars");
-            System.exit(0);
+            usage();
+        }
+
+        String portStr = extractFlagValue("-p", argv);
+        if (portStr != null)
+        {
+            try
+            {
+                port = Integer.parseInt(portStr);
+            }
+            catch (NumberFormatException e)
+            {
+                usage();
+            }
         }
 
         String workingDir =
@@ -47,9 +57,32 @@ public class Main
         startServer(workingDir, specificWARs);
     }
 
+    private static String extractFlagValue(String flag, List<String> argv)
+    {
+        int flagIdx = argv.indexOf(flag);
+        if (flagIdx < 0)
+            return null;
+
+        int valIdx = flagIdx + 1;
+        if (valIdx >= argv.size())
+            usage();
+        String result = argv.get(valIdx);
+        argv.remove(valIdx);
+        argv.remove(flagIdx);
+        return result;
+    }
+
+    private static void usage()
+    {
+        info("Nomcat: a simple WAR server that's not Tomcat\n");
+        info("Usage: nomcat.sh [-p PORT] [WAR_1] [WAR_2]\n");
+        info("If WAR_X is omitted, nomcat will serve any WARs in $CWD or $CWD/wars");
+        System.exit(0);
+    }
+
     private static void startServer(String workingDir, List<String> specificWARs) throws Exception
     {
-        Server server = new Server(PORT);
+        Server server = new Server(port);
 
         List<ContextHandler> warHandlers = createWarHandlers(workingDir, specificWARs);
         Handler indexHandler = createIndexContext(warHandlers);
@@ -63,7 +96,7 @@ public class Main
 
         server.start();
 
-        info("\n##############################\n# Server up on port " + PORT + "!\n##############################");
+        info("\n##############################\n# Server up on port " + port + "!\n##############################");
 
         server.join();
     }

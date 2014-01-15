@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+idea {
+    module {
+        jdkName = "1.6"
+    }
+}
+
+dependencies {
+    compile 'org.eclipse.jetty:jetty-server:8.1.14.v20131031'
+    compile 'org.eclipse.jetty:jetty-webapp:8.1.14.v20131031'
+
+}
+
+mainClassName = "nomcat.Main"

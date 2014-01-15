@@ -18,6 +18,12 @@ dependencies {
 
 }
 
+run {
+    if(project.hasProperty('args')){
+        args project.args.split('\\s+')
+    }
+}
+
 mainClassName = "nomcat.Main"
 
 task wrapper(type: Wrapper) {

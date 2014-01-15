@@ -76,7 +76,7 @@ public class Main
     {
         info("Nomcat: a simple WAR server that's not Tomcat\n");
         info("Usage: nomcat.sh [-p PORT] [WAR_1] [WAR_2]\n");
-        info("If WAR_X is omitted, nomcat will serve any WARs in $CWD or $CWD/wars");
+        info("If WAR_X is omitted, nomcat will serve any WARs in $CWD, $CWD/wars, or $CWD/dist");
         System.exit(0);
     }
 
@@ -114,10 +114,12 @@ public class Main
             warHandlers.addAll(createWarContexts(findWarFiles(new File(workingDir))));
             String warsDir = workingDir + "/wars";
             warHandlers.addAll(createWarContexts(findWarFiles(new File(warsDir))));
+            String distDir = workingDir + "/dist";
+            warHandlers.addAll(createWarContexts(findWarFiles(new File(distDir))));
 
             if (warHandlers.isEmpty())
             {
-                info("No WAR files found in " + workingDir + " or " + warsDir + ". Exiting.");
+                info("No WAR files found in " + workingDir + ", " + warsDir + ", or " + distDir + ". \nExiting.");
                 System.exit(0);
             }
         }

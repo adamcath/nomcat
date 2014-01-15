@@ -9,6 +9,8 @@ nomcat is a thin wrapper around the embedded Jetty server that just serves WAR f
 How to install and run nomcat
 -----------------------------
 
+You need Java 6 (JDK). Then:
+
     $ git clone git@github.com:YOU/nomcat.git
     $ cd DIR_WITH_WAR_FILES
     $ NOMCAT_DIR/nomcat

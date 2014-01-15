@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copyright (c) AppDynamics Technologies
- *
  * @author acath
  */
 public class IndexServlet extends HttpServlet

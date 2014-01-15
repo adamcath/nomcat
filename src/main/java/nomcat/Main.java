@@ -19,8 +19,6 @@ import static nomcat.TerminalColors.BLUE;
 import static nomcat.TerminalColors.RESET;
 
 /**
- * Copyright (c) AppDynamics Technologies
- *
  * @author acath
  */
 public class Main

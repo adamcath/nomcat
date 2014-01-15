@@ -1,12 +1,11 @@
 package nomcat;
 
 /**
- * Copyright (c) AppDynamics Technologies
- *
  * @author acath
  */
 public class TerminalColors
 {
+    // From http://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
     public static final String RED = "\u001B[31m";
